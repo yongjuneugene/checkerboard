@@ -255,7 +255,7 @@ def normalize_image(img):
     diff = (diff - np.min(diff)) / (np.max(diff) - np.min(diff))
     return diff
 
-def checkerboard_score(corners, size=(9,6)):
+def checkerboard_score(corners, size=(9,8)):
     corners_reshaped = corners[:, :2].reshape(*size, 2)
     maxm = 0
     for rownum in range(size[0]):
@@ -285,7 +285,7 @@ def make_mask_line(shape, start, end, thickness=2):
 
 
 # TODO: this should be replaced by the growing checkerboard from the Geiger et al paper
-def reorder_checkerboard(corners, gray, size=(9,6)):
+def reorder_checkerboard(corners, gray, size=(9,8)):
     corners_xy = corners[:, :2]
 
     tree = cKDTree(corners_xy)
@@ -387,7 +387,7 @@ def trim_picture(gray):
 
     return gray, crop_start
 
-def detect_checkerboard(gray, size=(9,6), winsize=9, trim=False):
+def detect_checkerboard(gray, size=(9,8), winsize=9, trim=False):
     if trim:
         gray, crop_start = trim_picture(gray)
         if gray is None:
